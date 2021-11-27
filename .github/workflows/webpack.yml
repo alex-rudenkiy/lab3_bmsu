@@ -21,8 +21,8 @@ jobs:
         uses: matt-ball/newman-action@master
         with:
           # TODO insert your <Variant> and <ServiceName>
-          collection: 4/postman/[rsoi] postman_collection.json
-          environment: 4/postman/[rsoi][heroku] postman_environment.json
+          collection: ./v4/postman/[rsoi] postman_collection.json
+          environment: ./v4/postman/[rsoi][heroku] postman_environment.json
           delayRequest: 100
           reporters: '[ "cli" ]'
           envVar: '[{ "key":"serviceName", "value":"rating-system-alex" }, { "key":"herokuApiKey", "value":"${{secrets.HEROKU_API_KEY}}" }]'
