@@ -71,7 +71,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Run API Tests
-        uses: anthonyvscode/newman-action@v1 
+        uses: matt-ball/newman-action@master
         with:
           # TODO insert your <Variant> and <ServiceName>
           collection: ./v4/postman/[rsoi] postman_collection.json
