@@ -9,7 +9,7 @@ on:
 jobs:
   startBuild:
     name: Autograding
-    runs-on: [runner2, runner3]
+    runs-on: [self-hosted, runner2]
     steps:
       - uses: actions/checkout@v2
         with:
