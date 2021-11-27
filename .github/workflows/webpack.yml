@@ -7,18 +7,73 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  startBuild:
     name: Autograding
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-
-      # TODO build, test and deploy project
-
+          
+  buildService1:
+    needs: startBuild
+    name: Build Microservice №1
+    runs-on: self-hosted
+    steps:
+      - name: Build and push Docker to Heroku Service1
+        run: |
+          cd "./Gateway API"
+          echo 22b1b640-f541-4b04-b267-5356f8bcdaec | docker login --username="alex-rudenkiy@mail.ru" registry.heroku.com --password-stdin
+          docker build --file "Dockerfile" --no-cache --tag registry.heroku.com/gateway-api-alex/web .
+          heroku container:push web --app gateway-api-alex
+          heroku container:release web --app gateway-api-alex
+          
+  buildService2:
+    needs: startBuild
+    name: Build Microservice №2
+    runs-on: self-hosted
+    steps:
+      - name: Build and push Docker to Heroku Service2
+        run: |
+          cd "./Library System"
+          echo 22b1b640-f541-4b04-b267-5356f8bcdaec | docker login --username="alex-rudenkiy@mail.ru" registry.heroku.com --password-stdin
+          docker build --file "Dockerfile" --no-cache --tag registry.heroku.com/library-system-alex/web .
+          heroku container:push web --app library-system-alex
+          heroku container:release web --app library-system-alex
+          
+  buildService3:
+    needs: startBuild
+    name: Build Microservice №3
+    runs-on: self-hosted
+    steps:
+      - name: Build and push Docker to Heroku Service3
+        run: |
+          cd "./Rating System"
+          echo 22b1b640-f541-4b04-b267-5356f8bcdaec | docker login --username="alex-rudenkiy@mail.ru" registry.heroku.com --password-stdin
+          docker build --file "Dockerfile" --no-cache --tag registry.heroku.com/rating-system-alex/web .
+          heroku container:push web --app rating-system-alex
+          heroku container:release web --app rating-system-alex
+  buildService4:
+    needs: startBuild
+    name: Build Microservice №4
+    runs-on: self-hosted
+    steps:
+      - name: Build and push Docker to Heroku Service4
+        run: |
+          cd "./Reservation System"
+          echo 22b1b640-f541-4b04-b267-5356f8bcdaec | docker login --username="alex-rudenkiy@mail.ru" registry.heroku.com --password-stdin
+          docker build --file "Dockerfile" --no-cache --tag registry.heroku.com/reservation-system-alex/web .
+          heroku container:push web --app reservation-system-alex
+          heroku container:release web --app reservation-system-alex
+  testing:
+    needs: [buildService1, buildService2, buildService3, buildService4]
+    name: Testing Microservice
+    runs-on: self-hosted
+    steps:
       - name: Run API Tests
-        uses: matt-ball/newman-action@master
+	id: run-newman
+        uses: anthonyvscode/newman-action@v1 
+	#matt-ball/newman-action@master
         with:
           # TODO insert your <Variant> and <ServiceName>
           collection: ./v4/postman/[rsoi] postman_collection.json
@@ -30,3 +85,6 @@ jobs:
       - uses: education/autograding@v1
         id: autograder
         continue-on-error: true
+
+
+
