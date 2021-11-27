@@ -1,4 +1,4 @@
-name: NodeJS with Webpack
+name: GitHub Classroom Workflow
 
 on:
   push:
@@ -8,21 +8,25 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [12.x, 14.x, 16.x]
-    
+    name: Autograding
+    runs-on: self-hosted
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
+      # TODO build, test and deploy project
 
-    - name: Build
-      run: |
-        npm install
-        npx webpack
+      - name: Run API Tests
+        uses: matt-ball/newman-action@master
+        with:
+          # TODO insert your <Variant> and <ServiceName>
+          collection: <Variant>/postman/[rsoi] postman_collection.json
+          environment: <Variant>/postman/[rsoi][heroku] postman_environment.json
+          delayRequest: 100
+          reporters: '[ "cli" ]'
+          envVar: '[{ "key":"serviceName", "value":"<ServiceName>" }, { "key":"herokuApiKey", "value":"${{secrets.HEROKU_API_KEY}}" }]'
+
+      - uses: education/autograding@v1
+        id: autograder
+        continue-on-error: true
