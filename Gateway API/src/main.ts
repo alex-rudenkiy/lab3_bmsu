@@ -5,9 +5,9 @@ import { GlobalService } from './utils/global.service';
 
 async function bootstrap() {
   global.HOSTS = {
-    "microService2":"http://localhost:4002", //https://library-system-alex.herokuapp.com
-    "microService3":"http://localhost:4003", //https://reservation-system-alex.herokuapp.com
-    "microService4":"http://localhost:4004" //https://rating-system-alex.herokuapp.com
+    "microService2":"https://library-system-alex.herokuapp.com", //
+    "microService3":"https://reservation-system-alex.herokuapp.com", //
+    "microService4":"https://rating-system-alex.herokuapp.com" //
   };
   const _ = ConfigModule.forRoot();
 
