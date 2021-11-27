@@ -152,7 +152,7 @@ export class AppService {
       let res = (await axios.patch(global.HOSTS.microService3 + `/api/v1/reservation/${reserv['id']}`, { status: newStatus })).data;//
       return res;
     }catch (e) {
-      const t:IRestTransaction = { timeout: 3000, url: '/api/v1/reservations/:ReservationUid/return', type: 'POST', payload: {userName, reservationUid, data}};
+      const t:IRestTransaction = { timeout: 10000, url: '/api/v1/reservations/:ReservationUid/return', type: 'POST', payload: {userName, reservationUid, data}};
       this.messageProducerService.reSendOnReservation(t);
       throw new HttpException('Bonus Service unavailable', 204);
     }
