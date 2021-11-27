@@ -74,6 +74,7 @@ jobs:
         run: |
           export HEROKU_API_KEY=22b1b640-f541-4b04-b267-5356f8bcdaec
           echo 22b1b640-f541-4b04-b267-5356f8bcdaec | docker login --username="alex-rudenkiy@mail.ru" registry.heroku.com --password-stdin
+          newman run ".\v4\postman\[rsoi] postman_collection.json" -e ".\v4\postman\[rsoi][heroku] postman_environment.json"
 
 #       - name: Run API Tests
 #         id: run-newman
@@ -84,15 +85,15 @@ jobs:
 #           delayRequest: 100
 #           reporters: cli
 
-      - name: Run API Tests
-        uses: matt-ball/newman-action@master
-        with:
-          # TODO insert your <Variant> and <ServiceName>
-          collection: ./v4/postman/[rsoi] postman_collection.json
-          environment: ./v4/postman/[rsoi][heroku] postman_environment.json
-          delayRequest: 100
-          reporters: '[ "cli" ]'
-          envVar: '[{ "key":"baseUrl", "value":"https://gateway-api-alex.herokuapp.com" }, { "key":"serviceName", "value":"rating-system-alex" }, { "key":"herokuApiKey", "value":"22b1b640-f541-4b04-b267-5356f8bcdaec" }]'
+#       - name: Run API Tests
+#         uses: matt-ball/newman-action@master
+#         with:
+#           # TODO insert your <Variant> and <ServiceName>
+#           collection: ./v4/postman/[rsoi] postman_collection.json
+#           environment: ./v4/postman/[rsoi][heroku] postman_environment.json
+#           delayRequest: 100
+#           reporters: '[ "cli" ]'
+#           envVar: '[{ "key":"baseUrl", "value":"https://gateway-api-alex.herokuapp.com" }, { "key":"serviceName", "value":"rating-system-alex" }, { "key":"herokuApiKey", "value":"22b1b640-f541-4b04-b267-5356f8bcdaec" }]'
 
       - uses: education/autograding@v1
         id: autograder
