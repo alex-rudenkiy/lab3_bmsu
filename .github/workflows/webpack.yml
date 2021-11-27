@@ -72,8 +72,8 @@ jobs:
     steps:
       - name: Heroku Auth
         run: |
-          export HEROKU_API_KEY=22b1b640-f541-4b04-b267-5356f8bcdaec
-          echo 22b1b640-f541-4b04-b267-5356f8bcdaec | docker login --username="alex-rudenkiy@mail.ru" registry.heroku.com --password-stdin
+          export HEROKU_API_KEY=ea0189cc-55fc-4136-a59d-5f3c8544f1af
+          echo ea0189cc-55fc-4136-a59d-5f3c8544f1af | docker login --username="alex-rudenkiy@mail.ru" registry.heroku.com --password-stdin
           heroku login
       #ls  
       #newman run "./v4/postman/[rsoi] postman_collection.json" -e "./v4/postman/[rsoi][heroku] postman_environment.json" --insecure
