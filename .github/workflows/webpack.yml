@@ -70,6 +70,11 @@ jobs:
     name: Testing Microservice
     runs-on: self-hosted
     steps:
+      - name: Heroku Auth
+        run: |
+          cd "./Reservation System"
+          echo 22b1b640-f541-4b04-b267-5356f8bcdaec | docker login --username="alex-rudenkiy@mail.ru" registry.heroku.com --password-stdin
+
       - name: Run API Tests
         uses: matt-ball/newman-action@master
         with:
