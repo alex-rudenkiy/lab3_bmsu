@@ -71,7 +71,6 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Run API Tests
-	id: run-newman
         uses: anthonyvscode/newman-action@v1 
 	#matt-ball/newman-action@master
         with:
