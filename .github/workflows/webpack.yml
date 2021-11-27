@@ -78,7 +78,7 @@ jobs:
           environment: ./v4/postman/[rsoi][heroku] postman_environment.json
           delayRequest: 100
           reporters: '[ "cli" ]'
-          envVar: '[{ "key":"serviceName", "value":"rating-system-alex" }, { "key":"herokuApiKey", "value":"22b1b640-f541-4b04-b267-5356f8bcdaec" }]'
+          envVar: '[{ "key":"baseUrl", "value":"https://gateway-api-alex.herokuapp.com" }, { "key":"serviceName", "value":"rating-system-alex" }, { "key":"herokuApiKey", "value":"22b1b640-f541-4b04-b267-5356f8bcdaec" }]'
 
       - uses: education/autograding@v1
         id: autograder
