@@ -3,7 +3,7 @@ import {
   Controller,
   Delete,
   Get,
-  HttpCode,
+  HttpCode, HttpException,
   HttpStatus,
   Param,
   Patch,
@@ -16,12 +16,13 @@ import { AppService } from './app.service';
 import { Headers } from '@nestjs/common';
 import { ReturnBookRequestDto } from './dto/return-book-request.dto';
 import { TakeBookRequestDto } from './dto/take-book-request.dto';
-import { Response } from 'express';
+import { response, Response } from 'express';
 import axios from 'axios';
 import { STATUS_CODES } from 'http';
 import { GlobalService } from './utils/global.service';
 import { MessageProducerService } from './utils/circuit_breaker/message.producer.service';
 import { IRestTransaction } from './types/RestTransaction';
+import { rejects } from 'assert';
 
 @Controller()
 export class AppController {
@@ -45,30 +46,26 @@ export class AppController {
   }
 
   @Post("/api/v1/reservations")
-  async postReservations(@Headers('X-User-Name') userName: string, @Body() data: TakeBookRequestDto, @Res() response: Response) {
-    console.log(200);
-    let res = (await this.appService.postReservations(userName, data));
-    //console.log(res);
-    response.status(200).send(res);
-    //return this.appService.postReservations(userName, data);
-  }
+  async postReservations(@Headers('X-User-Name') userName: string, @Body() data: TakeBookRequestDto, @Res() response: Response): Promise<unknown | undefined> {
+      return response.status(200).send(await this.appService.postReservations(userName, data));
+
+    }
 
   @Post("/api/v1/reservations/:ReservationUid/return")
   @HttpCode(204)
   postReservationsReturn(@Headers('X-User-Name') userName: string, @Param('ReservationUid') reservationUid: string, @Body() data: ReturnBookRequestDto): Promise<String> {
-    try{
-      throw 'gg';
-    }catch (e) {
-      const t:IRestTransaction = { timeout: 3000, url: '/api/v1/reservations/:ReservationUid/return', type: 'POST', payload: {userName, reservationUid, data}};
-      this.messageProducerService.reSendOnReservation(t);
-    }
-    return ;
-    //return this.appService.postReservationsReturn(userName, reservationUid, data);
+      try{
+        return this.appService.postReservationsReturn(userName, reservationUid, data);
+      } catch (e){
+
+        return
+      }
+      //return
   }
 
   @Get("/api/v1/rating")
   getUserRating(@Headers('X-User-Name') username: string): Promise<String> {
-    return this.appService.getUserRating(username);
+      return this.appService.getUserRating(username);
   }
 
 

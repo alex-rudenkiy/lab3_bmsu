@@ -11,8 +11,9 @@ import { MessageConsumer } from './utils/circuit_breaker/message.consumer';
     ConfigModule.forRoot(),
     BullModule.forRoot({
     redis: {
-      host: 'localhost',
-      port: 6379,
+      host: 'redis-10780.c259.us-central1-2.gce.cloud.redislabs.com',
+      port: 10780,
+      password: 'JeNbkKsK3bH5kzLqjgBm7dNOeTdA5HQn'
     },
   }),
     BullModule.registerQueue({
