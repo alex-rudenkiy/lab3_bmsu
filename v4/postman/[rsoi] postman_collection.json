@@ -1517,7 +1517,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"setTimeout(() => {}, 40000); "
+									"setTimeout(() => {}, 60000); "
 								],
 								"type": "text/javascript"
 							}
