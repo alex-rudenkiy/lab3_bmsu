@@ -15,31 +15,31 @@ jobs:
         with:
           fetch-depth: 0
           
-  buildService1:
-    needs: startBuild
-    name: Build Microservice №1
-    runs-on: self-hosted
-    steps:
-      - name: Build and push Docker to Heroku Service1
-        run: |
-          cd "./Gateway API"
-          echo 22b1b640-f541-4b04-b267-5356f8bcdaec | docker login --username="alex-rudenkiy@mail.ru" registry.heroku.com --password-stdin
-          docker build --file "Dockerfile" --no-cache --tag registry.heroku.com/gateway-api-alex/web .
-          heroku container:push web --app gateway-api-alex
-          heroku container:release web --app gateway-api-alex
+#   buildService1:
+#     needs: startBuild
+#     name: Build Microservice №1
+#     runs-on: self-hosted
+#     steps:
+#       - name: Build and push Docker to Heroku Service1
+#         run: |
+#           cd "./Gateway API"
+#           echo 22b1b640-f541-4b04-b267-5356f8bcdaec | docker login --username="alex-rudenkiy@mail.ru" registry.heroku.com --password-stdin
+#           docker build --file "Dockerfile" --no-cache --tag registry.heroku.com/gateway-api-alex/web .
+#           heroku container:push web --app gateway-api-alex
+#           heroku container:release web --app gateway-api-alex
           
-  buildService2:
-    needs: startBuild
-    name: Build Microservice №2
-    runs-on: self-hosted
-    steps:
-      - name: Build and push Docker to Heroku Service2
-        run: |
-          cd "./Library System"
-          echo 22b1b640-f541-4b04-b267-5356f8bcdaec | docker login --username="alex-rudenkiy@mail.ru" registry.heroku.com --password-stdin
-          docker build --file "Dockerfile" --no-cache --tag registry.heroku.com/library-system-alex/web .
-          heroku container:push web --app library-system-alex
-          heroku container:release web --app library-system-alex
+#   buildService2:
+#     needs: startBuild
+#     name: Build Microservice №2
+#     runs-on: self-hosted
+#     steps:
+#       - name: Build and push Docker to Heroku Service2
+#         run: |
+#           cd "./Library System"
+#           echo 22b1b640-f541-4b04-b267-5356f8bcdaec | docker login --username="alex-rudenkiy@mail.ru" registry.heroku.com --password-stdin
+#           docker build --file "Dockerfile" --no-cache --tag registry.heroku.com/library-system-alex/web .
+#           heroku container:push web --app library-system-alex
+#           heroku container:release web --app library-system-alex
           
 #   buildService3:
 #     needs: startBuild
