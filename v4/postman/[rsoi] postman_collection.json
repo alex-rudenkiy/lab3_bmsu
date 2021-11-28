@@ -851,7 +851,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"setTimeout(() => {}, 3000); "
+									"setTimeout(() => {}, 2000); "
 								],
 								"type": "text/javascript"
 							}
@@ -1334,6 +1334,15 @@
 									"pm.test(\"Вернуть книгу\", () => {",
 									"    pm.response.to.have.status(204)",
 									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"setTimeout(() => {}, 2000); "
 								],
 								"type": "text/javascript"
 							}
