@@ -846,6 +846,15 @@
 								],
 								"type": "text/javascript"
 							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"setTimeout(() => {}, 3000); "
+								],
+								"type": "text/javascript"
+							}
 						}
 					],
 					"request": {
